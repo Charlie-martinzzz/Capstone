@@ -13,16 +13,18 @@ Original file is located at
 
 import requests
 import pandas as pd
-from google.colab import userdata
+import os
+from dotenv import load_dotenv
+load_dotenv()
 import psycopg2 as psql
 from psycopg2.extras import execute_values
 
 # Import neccesary sensitive information secretly with colab userdata
 
-password = userdata.get('sql_password')
-user = userdata.get('sql_user')
-my_host = userdata.get('host')
-API_key = userdata.get('api_key')
+password = os.getenv('sql_password')
+user = os.getenv('sql_user')
+my_host = os.getenv('host')
+API_key = os.getenv('api_key')
 
 # Create a get request for the API
 
