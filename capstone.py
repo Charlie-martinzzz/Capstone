@@ -40,37 +40,29 @@ articles = []
 
 # Loop through everything in news_results
 for article in response['news_results']:
-# Check if the article has necessary fields
-  if 'title' in article and 'source' in article and 'link' in article and 'date' in article:
-    title = article['title']
-    source = article['source']['name']
-    icon = article['source']['icon']
-    link = article['link']
-    date = article['date']
-    articles.append((title, source, icon, link, date))
-
-   # Convert the list to a pandas DataFrame
-    columns = ['title', 'source', 'icon', 'link', 'date']
-    df = pd.DataFrame(articles, columns=columns)
-
-            # 'Stories' are similar, unique articles that are nested within a news_result story, and need to be accessed seperately
-
-  if 'stories' in article:
-    for story in article['stories']:
-      if 'title' in story and 'source' in story and 'link' in story and 'date' in story:
-        title = story['title']
-        source = story['source']['name']
-        icon = story['source']['icon']
-        link = story['link']
-        date = story['date']
+    # Check if the article has necessary fields
+    if 'title' in article and 'source' in article and 'link' in article and 'date' in article:
+        title = article['title']
+        source = article['source']['name']
+        icon = article['source']['icon']
+        link = article['link']
+        date = article['date']
         articles.append((title, source, icon, link, date))
 
-    # Convert the list to a pandas DataFrame
-    columns = ['title', 'source', 'icon', 'link', 'date']
-    df2 = pd.DataFrame(articles, columns=columns)
+    # 'Stories' are similar, unique articles that are nested within a news_result story, and need to be accessed separately
+    if 'stories' in article:
+        for story in article['stories']:
+            if 'title' in story and 'source' in story and 'link' in story and 'date' in story:
+                title = story['title']
+                source = story['source']['name']
+                icon = story['source']['icon']
+                link = story['link']
+                date = story['date']
+                articles.append((title, source, icon, link, date))
 
-    # Join the two dataframes together
-    news_df = pd.concat([df, df2])
+# Convert the list to a pandas DataFrame
+columns = ['title', 'source', 'icon', 'link', 'date']
+news_df = pd.DataFrame(articles, columns=columns)
 
 # the date column needs to be cleaned to only contain the date
 
