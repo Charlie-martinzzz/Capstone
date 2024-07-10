@@ -19,7 +19,7 @@ load_dotenv()
 import psycopg2 as psql
 from psycopg2.extras import execute_values
 
-# Import neccesary sensitive information secretly with colab userdata
+# Import neccesary sensitive information secretly with os and dotenv
 
 password = os.getenv('sql_password')
 user = os.getenv('sql_user')
